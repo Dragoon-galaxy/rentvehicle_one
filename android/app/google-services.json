@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "9617614295",
+    "project_id": "drivex1-548ed",
+    "storage_bucket": "drivex1-548ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9617614295:android:8dfff87187afb5eb759792",
+        "android_client_info": {
+          "package_name": "com.example.rentvehicle_one"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKqlTVSbGagFN20stZui9Uvw2hqdyPSr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
