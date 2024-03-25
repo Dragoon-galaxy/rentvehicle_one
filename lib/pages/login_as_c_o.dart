@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rentvehicle_one/Customer/customer_login.dart';
-import 'package:rentvehicle_one/Owner/owner_login.dart';
+// import 'package:rentvehicle_one/Owner/owner_login.dart';
+import 'package:rentvehicle_one/Customer/customer_signup.dart';
 
 const startAlignment = Alignment.topCenter;
 const endAlignment = Alignment.bottomCenter;
@@ -30,7 +31,7 @@ class LoginCommonScreenState extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    const SizedBox(height: 25.0),
+                    const SizedBox(height: 55.0),
                     const Image(
                       image: AssetImage('images/rectangle-7.png'),
                       width: 250,
@@ -53,16 +54,16 @@ class LoginCommonScreenState extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 350.0),
+                    const SizedBox(height: 260.0),
                     const Text(
-                      'LOGIN AS',
+                      'Please Sign in or Register',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 60.0),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -75,21 +76,17 @@ class LoginCommonScreenState extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 41, 2, 109),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(0),
                         ),
+                        fixedSize: const Size(
+                            300, 50), // Adjust the width of the button
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 60,
-                        ),
-                        child: Text(
-                          'CUSTOMER',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
+                      child: const Text(
+                        'SIGN IN',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -99,28 +96,24 @@ class LoginCommonScreenState extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OwnerLoginScreen(),
+                            builder: (context) => const CustomerRegistrationScreen(),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 41, 2, 109),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(0),
                         ),
+                        fixedSize: const Size(
+                            300, 50), // Adjust the width of the button
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 80,
-                        ),
-                        child: Text(
-                          'OWNER',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
+                      child: const Text(
+                        'REGISTER',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.white,
                         ),
                       ),
                     ),

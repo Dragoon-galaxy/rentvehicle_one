@@ -65,41 +65,51 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   }
 
   Future<void> _verifyOTP(BuildContext context) async {
-    setState(() {
-      isLoading = true;
+  setState(() {
+    isLoading = true;
+  });
+
+  try {
+    final AuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: _verificationId!,
+      smsCode: otpController.text.trim(),
+    );
+
+    final UserCredential userCredential =
+        await _auth.signInWithCredential(credential);
+
+    await _firestore.collection('customers').doc(userCredential.user!.uid).set({
+      'phoneNumber': widget.phoneNumber,
     });
 
-    try {
-      final AuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: _verificationId!,
-        smsCode: otpController.text.trim(),
-      );
+    setState(() {
+      isLoading = false;
+    });
 
-      final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
-
-      await _firestore.collection('customers').doc(userCredential.user!.uid).set({
-        'phoneNumber': widget.phoneNumber,
-      });
-
-      setState(() {
-        isLoading = false;
-      });
-
+    // Check if the user has entered OTP before navigating
+    if (otpController.text.isNotEmpty) {
+      // If OTP is entered, navigate to the home screen
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const CustomerHomeScreen()),
       );
-    } catch (error) {
-      setState(() {
-        isLoading = false;
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error verifying OTP: $error"),
+    } else {
+      // If OTP is not entered, show a message or perform any other action
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Please enter OTP to create account"),
       ));
     }
+  } catch (error) {
+    setState(() {
+      isLoading = false;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Error verifying OTP: $error"),
+    ));
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

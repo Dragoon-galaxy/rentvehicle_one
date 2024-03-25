@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rentvehicle_one/Customer/customer_homescreen.dart';
 import 'package:rentvehicle_one/Customer/customer_signup.dart';
+import 'package:rentvehicle_one/Customer/forgot_password_screen.dart';
 
 class CustomerLoginScreen extends StatelessWidget {
   CustomerLoginScreen({super.key});
@@ -63,6 +64,7 @@ class CustomerLoginScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        elevation: 8.0,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -105,7 +107,15 @@ class CustomerLoginScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   suffixIcon: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navigate to the ForgotPasswordScreen when the button is pressed
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen(),
+                        ),
+                      );
+                    },
                     child: const Text(
                       'Forget Password?',
                       style: TextStyle(color: Colors.blue),
