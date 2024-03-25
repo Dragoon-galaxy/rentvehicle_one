@@ -237,30 +237,38 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
               viewportFraction: 0.8,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                    20.0), // Adjust the border radius as needed
-                border: Border.all(
-                  color: Colors.black, // Adjust the border color as needed
-                  width: 2.0, // Adjust the border width as needed
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: TextField(
-                  decoration: const InputDecoration(
-                    hintText: "Search Vehicle",
-                     hintStyle: TextStyle(color: Color.fromARGB(255, 11, 11, 11)),
-                    border:
-                        InputBorder.none, // Remove the default TextField border
-                    suffixIcon: Icon(Icons.search),
-                  ),
-                  onSubmitted: (String value) {},
-                ),
-              ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Container(
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(
+          //           20.0), // Adjust the border radius as needed
+          //       border: Border.all(
+          //         color: Colors.black, // Adjust the border color as needed
+          //         width: 2.0, // Adjust the border width as needed
+          //       ),
+          //     ),
+          //     child: Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          //       child: TextField(
+          //         decoration: const InputDecoration(
+          //           hintText: "Search Vehicle",
+          //            hintStyle: TextStyle(color: Color.fromARGB(255, 11, 11, 11)),
+          //           border:
+          //               InputBorder.none, // Remove the default TextField border
+          //           suffixIcon: Icon(Icons.search),
+          //         ),
+          //         onSubmitted: (String value) {},
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          const SizedBox(height: 7.0), 
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20), // Adjust horizontal margin here
+            child: Divider(
+              thickness: 1.5, // Adjust the thickness of the line
+              color: Colors.black, // Set the color of the line
             ),
           ),
           _buildVehicleItem(
@@ -471,10 +479,18 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
           ListTile(
             trailing: TextButton(
               onPressed: () {
-                _submitReview();
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AllImagesScreen(
+                    name: name,
+                    imageUrls: imageUrls, //
+                  ),
+                ),
+              );
               },
               child: const Text(
-                'Rent Now',
+                'Explore above vehicles',
                 style: TextStyle(color: Colors.blue),
               ),
             ),
