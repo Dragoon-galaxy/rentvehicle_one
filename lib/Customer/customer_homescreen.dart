@@ -8,6 +8,7 @@ import 'package:rentvehicle_one/Customer/all_images_screen.dart';
 import 'package:rentvehicle_one/Customer/customers_trip.dart';
 import 'package:rentvehicle_one/Customer/customervehicleinfo.dart';
 import 'package:rentvehicle_one/Customer/navigation_drawer.dart';
+import 'package:rentvehicle_one/Customer/vehicle_details.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({super.key});
@@ -43,7 +44,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     });
   }
 
-  String _selectedLocation = 'Select Location';
+  // String _selectedLocation = 'Select Location';
   late String _userName = '';
   late String _email = '';
   @override
@@ -69,12 +70,6 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     }
   }
 
-  void _selectLocation(String? newValue) {
-    setState(() {
-      _selectedLocation = newValue ?? 'Select Location';
-    });
-  }
-
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -98,10 +93,10 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     }
   }
 
-  void _submitReview() {
-    // Implement review submission
-    print('Review submitted');
-  }
+  // void _submitReview() {
+  //   // Implement review submission
+  //   print('Review submitted');
+  // }
 
   void _navigateToCarInfoPage(
       String carName,
@@ -130,9 +125,6 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
           carFuelInfo: carFuelInfo,
           carPrice: carPrice,
           carFeatures: carFeatures,
-          onSelectLocation: () {
-            _selectLocation(_selectedLocation);
-          },
           onSelectDate: () {
             _selectDate(context);
           },
@@ -192,6 +184,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
           ],
         ),
       ),
+
       body: ListView(
         children: <Widget>[
           const SizedBox(height: 4.0),
@@ -251,14 +244,30 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
           //     child: Padding(
           //       padding: const EdgeInsets.symmetric(horizontal: 8.0),
           //       child: TextField(
-          //         decoration: const InputDecoration(
-          //           hintText: "Search Vehicle",
-          //            hintStyle: TextStyle(color: Color.fromARGB(255, 11, 11, 11)),
-          //           border:
-          //               InputBorder.none, // Remove the default TextField border
-          //           suffixIcon: Icon(Icons.search),
+          //         decoration: InputDecoration(
+          //           hintText: 'Search Vehicle',
+          //           hintStyle: const TextStyle(fontSize: 16),
+          //           border: OutlineInputBorder(
+          //             borderRadius: BorderRadius.circular(15),
+          //             borderSide: const BorderSide(
+          //               width: 0,
+          //               style: BorderStyle.none,
+          //             ),
+          //           ),
+          //           filled: true,
+          //           fillColor: Colors.grey[100],
+          //           contentPadding: const EdgeInsets.only(
+          //             left: 30,
+          //           ),
+          //           suffixIcon: const Padding(
+          //             padding: EdgeInsets.only(right: 24.0, left: 16.0),
+          //             child: Icon(
+          //               Icons.search,
+          //               color: Colors.black,
+          //               size: 24,
+          //             ),
+          //           ),
           //         ),
-          //         onSubmitted: (String value) {},
           //       ),
           //     ),
           //   ),
@@ -273,30 +282,29 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
           ),
           _buildVehicleItem(
             context,
-            'Cars',
+            'Car',
             [
               'images/cars/c1.jpeg',
-              'images/cars/c2.jpeg',
-              'images/cars/c3.jpeg',
-              'images/cars/c4.jpeg',
-              'images/cars/c5.jpeg',
+              'images/cars/n1.jpeg',
+              'images/cars/t1.jpeg',
+              'images/cars/x1.jpeg',
             ],
           ),
           _buildVehicleItem(
             context,
-            'Bikes',
+            'Bike',
             [
               'images/bikes/l1.jpg',
-              'images/bikes/l2.jpg',
-              'images/bikes/l3.jpg',
+              'images/bikes/h1.jpg',
+              'images/bikes/sp1.jpg',
             ],
           ),
           _buildVehicleItem(
             context,
-            'Scooter',
+            'Scooty',
             [
               'images/scooty/a1.jpg',
-              'images/scooty/a2.jpg',
+              'images/scooty/p1.jpg',
               'images/scooty/a3.jpg',
               'images/scooty/a4.jpeg',
             ],
@@ -374,30 +382,208 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
   Widget _buildVehicleItem(
       BuildContext context, String name, List<String> imageUrls) {
-    List<Widget> imagesToShow = imageUrls
-        .take(3) // Show only the first three images
-        .map((imageUrl) {
+    // Placeholder vehicle details for each image
+    Map<String, List<VehicleDetails>> initialDetailsMap = {
+      'Car': [
+        VehicleDetails(
+          rating: '4.5',
+          renter: 'Jay Sharma',
+          seats: '4',
+          ac: 'Yes',
+          safetyRating: '5',
+          address: '1600 Amphitheatre Parkway, Mountain View, CA',
+          fuelInfo: 'Petrol, 20 kmpl',
+          price: '\$50 per day',
+          features: ['Bluetooth', 'GPS', 'USB'],
+        ),
+        VehicleDetails(
+          rating: '4.0',
+          renter: 'Abhijit Banerjee',
+          seats: '2',
+          ac: 'Yes',
+          safetyRating: '4',
+          address: '456 Street, City',
+          fuelInfo: 'Diesel, 15 kmpl',
+          price: '\$40 per day',
+          features: ['Bluetooth', 'USB'],
+        ),
+        VehicleDetails(
+          rating: '4.0',
+          renter: 'Rohit Sharma',
+          seats: '2',
+          ac: 'Yes',
+          safetyRating: '4',
+          address: '456 Street, City',
+          fuelInfo: 'Diesel, 15 kmpl',
+          price: '\$40 per day',
+          features: ['Bluetooth', 'USB'],
+        ),
+        VehicleDetails(
+          rating: '4.0',
+          renter: 'Raj Verma',
+          seats: '2',
+          ac: 'Yes',
+          safetyRating: '4',
+          address: '456 Street, City',
+          fuelInfo: 'Diesel, 15 kmpl',
+          price: '\$40 per day',
+          features: ['Bluetooth', 'USB'],
+        ),
+      ],
+      'Bike': [
+        VehicleDetails(
+          rating: '4.0',
+          renter: 'Dev Raj',
+          seats: '2',
+          ac: 'Yes',
+          safetyRating: '4',
+          address: '456 Street, City',
+          fuelInfo: 'Diesel, 15 kmpl',
+          price: '\$40 per day',
+          features: ['Bluetooth', 'USB'],
+        ),
+        VehicleDetails(
+          rating: '4.0',
+          renter: 'Jane Doe',
+          seats: '2',
+          ac: 'Yes',
+          safetyRating: '4',
+          address: '456 Street, City',
+          fuelInfo: 'Diesel, 15 kmpl',
+          price: '\$40 per day',
+          features: ['Bluetooth', 'USB'],
+        ),
+        VehicleDetails(
+          rating: '4.8',
+          renter: 'John Smith',
+          seats: '5',
+          ac: 'Yes',
+          safetyRating: '5',
+          address: '789 Avenue, Town',
+          fuelInfo: 'Petrol, 25 kmpl',
+          price: '\$60 per day',
+          features: ['Bluetooth', 'GPS', 'USB', 'Sunroof'],
+        ),
+        VehicleDetails(
+          rating: '4.2',
+          renter: 'Emily Johnson',
+          seats: '4',
+          ac: 'Yes',
+          safetyRating: '4',
+          address: '321 Boulevard, City',
+          fuelInfo: 'Diesel, 18 kmpl',
+          price: '\$45 per day',
+          features: ['Bluetooth', 'USB', 'Parking Sensors'],
+        ),
+      ],
+      'Scooty': [
+        VehicleDetails(
+          rating: '4.5',
+          renter: 'Alex Brown',
+          seats: '2',
+          ac: 'No',
+          safetyRating: '4',
+          address: '987 Road, Village',
+          fuelInfo: 'Petrol, 30 kmpl',
+          price: '\$30 per day',
+          features: ['Bluetooth', 'USB', 'Helmet Included'],
+        ),
+        VehicleDetails(
+          rating: '4.3',
+          renter: 'Sophia Garcia',
+          seats: '2',
+          ac: 'No',
+          safetyRating: '4',
+          address: '654 Lane, Suburb',
+          fuelInfo: 'Petrol, 25 kmpl',
+          price: '\$35 per day',
+          features: ['Bluetooth', 'USB', 'Phone Mount'],
+        ),
+        VehicleDetails(
+          rating: '4.4',
+          renter: 'Olivia Martinez',
+          seats: '1',
+          ac: 'No',
+          safetyRating: '4',
+          address: '456 Avenue, Park',
+          fuelInfo: 'Electric, 50 kmpl',
+          price: '\$20 per day',
+          features: ['Bluetooth', 'USB', 'Locking Mechanism'],
+        ),
+        VehicleDetails(
+          rating: '4.7',
+          renter: 'Michael Miller',
+          seats: '1',
+          ac: 'No',
+          safetyRating: '4',
+          address: '123 Street, Downtown',
+          fuelInfo: 'Electric, 60 kmpl',
+          price: '\$25 per day',
+          features: ['Bluetooth', 'USB', 'Portable Charger'],
+        ),
+      ],
+      'Electric Vehicle': [
+        VehicleDetails(
+          rating: '4.6',
+          renter: 'William Taylor',
+          seats: '4',
+          ac: 'Yes',
+          safetyRating: '5',
+          address: '789 Boulevard, Lake',
+          fuelInfo: 'Electric, 300 km range',
+          price: '\$80 per day',
+          features: ['Bluetooth', 'USB', 'Autopilot'],
+        ),
+        VehicleDetails(
+          rating: '4.0',
+          renter: 'Jane Doe',
+          seats: '2',
+          ac: 'Yes',
+          safetyRating: '4',
+          address: '456 Street, City',
+          fuelInfo: 'Diesel, 15 kmpl',
+          price: '\$40 per day',
+          features: ['Bluetooth', 'USB'],
+        ),
+        VehicleDetails(
+          rating: '4.2',
+          renter: 'Isabella Brown',
+          seats: '2',
+          ac: 'Yes',
+          safetyRating: '4',
+          address: '987 Road, Forest',
+          fuelInfo: 'Electric, 250 km range',
+          price: '\$70 per day',
+          features: ['Bluetooth', 'USB', 'Collision Avoidance'],
+        ),
+      ] // Add details for other images as needed
+    };
+
+    // Fetch initial details based on the category name
+    List<VehicleDetails> initialDetails = initialDetailsMap[name] ?? [];
+    // Function to build the image widget
+    Widget buildImageWidget(
+        String imageUrl, String name, VehicleDetails details) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
           onTap: () {
-            // Handle individual photo tap here
             _navigateToCarInfoPage(
               name,
-              [imageUrl], // Pass only the tapped image URL
-              '4.5', // Placeholder for car rating
-              'John Doe', // Placeholder for car renter
-              '4', // Placeholder for car seats
-              'Yes', // Placeholder for car AC
-              '5', // Placeholder for car safety rating
-              '123 Street, City', // Placeholder for car address
-              'Petrol, 20 kmpl', // Placeholder for car fuel info
-              '\$50 per day', // Placeholder for car price
-              ['Bluetooth', 'GPS', 'USB'], // Placeholder for car features
+              [imageUrl],
+              details.rating,
+              details.renter,
+              details.seats,
+              details.ac,
+              details.safetyRating,
+              details.address,
+              details.fuelInfo,
+              details.price,
+              details.features,
             );
           },
           child: SizedBox(
-            width: 360, // Adjust the width as needed
+            width: 360,
             child: Stack(
               children: [
                 ClipRRect(
@@ -412,9 +598,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                       return Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color:
-                                Colors.black, // Adjust border color as needed
-                            width: 4.0, // Adjust border width as needed
+                            color: Colors.black,
+                            width: 4.0,
                           ),
                         ),
                         child: child,
@@ -422,15 +607,51 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                     },
                   ),
                 ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: Colors.black54,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    child: Text(
+                      name,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       );
+    }
+
+    // List to hold all widgets (images + "See all" button if necessary)
+    List<Widget> widgetsToShow = [];
+
+    // Build widgets for initial 2 images
+    List<Widget> initialImages =
+        imageUrls.take(2).toList().asMap().entries.map((entry) {
+      int index = entry.key;
+      String imageUrl = entry.value;
+      if (index < initialDetails.length) {
+        return buildImageWidget(imageUrl, name, initialDetails[index]);
+      } else {
+        return Container(); // Return an empty container if no initial detail is available for this index
+      }
     }).toList();
 
-    if (imageUrls.length > 3) {
-      imagesToShow.add(
+    // Add initial images to the list of widgets to show
+    widgetsToShow.addAll(initialImages);
+
+    if (imageUrls.length > 2) {
+      widgetsToShow.add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: GestureDetector(
@@ -440,7 +661,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                 MaterialPageRoute(
                   builder: (context) => AllImagesScreen(
                     name: name,
-                    imageUrls: imageUrls, //
+                    imageUrls: imageUrls,
+                    vehicleDetails: initialDetails,
                   ),
                 ),
               );
@@ -455,6 +677,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         ),
       );
     }
+
     return Card(
       margin: const EdgeInsets.all(8.0),
       child: Column(
@@ -473,18 +696,19 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: imagesToShow,
+              children: widgetsToShow,
             ),
           ),
           ListTile(
             trailing: TextButton(
-              onPressed: () {
+               onPressed: () {
                 Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => AllImagesScreen(
                     name: name,
-                    imageUrls: imageUrls, //
+                    imageUrls: imageUrls,
+                    vehicleDetails: initialDetails,
                   ),
                 ),
               );

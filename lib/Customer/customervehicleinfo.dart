@@ -1,5 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rentvehicle_one/Customer/booking_page.dart';
 
 class CarInfoPage extends StatefulWidget {
   final String carName;
@@ -13,7 +16,6 @@ class CarInfoPage extends StatefulWidget {
   final String carFuelInfo;
   final String carPrice;
   final List<String> carFeatures;
-  final void Function()? onSelectLocation;
   final void Function()? onSelectDate;
   final void Function()? onSelectTime;
 
@@ -30,13 +32,12 @@ class CarInfoPage extends StatefulWidget {
     required this.carFuelInfo,
     required this.carPrice,
     required this.carFeatures,
-    this.onSelectLocation,
     this.onSelectDate,
     this.onSelectTime,
   });
 
   @override
-  State<CarInfoPage> createState() => _CarInfoPageState();
+  _CarInfoPageState createState() => _CarInfoPageState();
 }
 
 class _CarInfoPageState extends State<CarInfoPage> {
@@ -79,10 +80,6 @@ class _CarInfoPageState extends State<CarInfoPage> {
     }
   }
 
-  void _selectLocation(BuildContext context) {
-    // Implement location selection functionality
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,21 +94,42 @@ class _CarInfoPageState extends State<CarInfoPage> {
             SizedBox(
               height: 200,
               width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: widget.carImageUrls.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 400, // Adjust width as needed
-                    margin: const EdgeInsets.only(right: 8),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(widget.carImageUrls[index]),
-                        fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: widget.carImageUrls.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        width: 400, // Adjust width as needed
+                        margin: const EdgeInsets.only(right: 8),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(widget.carImageUrls[index]),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        widget.carRating,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 16),
@@ -171,14 +189,6 @@ class _CarInfoPageState extends State<CarInfoPage> {
               ),
             ),
             const SizedBox(height: 8),
-            Text(
-              'Price: ${widget.carPrice}',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
             const Text(
               'Features:',
               style: TextStyle(
@@ -186,7 +196,7 @@ class _CarInfoPageState extends State<CarInfoPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -196,36 +206,64 @@ class _CarInfoPageState extends State<CarInfoPage> {
                 );
               }).toList(),
             ),
+            const SizedBox(height: 8),
+            Text(
+              'Price: ${widget.carPrice}',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _selectDate(context);
-                    },
-                    child: const Text('Set Date'),
+            Container(
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white, // Background color
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _selectTime(context);
-                    },
-                    child: const Text('Set Time'),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue, // Text color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text('Set Date'),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _selectLocation(context);
-                    },
-                    child: const Text('Set Location'),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _selectTime(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue, // Text color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text('Set Time'),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             Text(
@@ -235,7 +273,7 @@ class _CarInfoPageState extends State<CarInfoPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             Text(
               'Selected Time: ${_timeFormat.format(DateTime(2022, 1, 1, _selectedTime.hour, _selectedTime.minute))}',
               style: const TextStyle(
@@ -243,13 +281,73 @@ class _CarInfoPageState extends State<CarInfoPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                // Handle review submission
-              },
-              child: const Text('Submit Review'),
+            const SizedBox(height: 16),
+            Container(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookingPage(
+                        carName: widget.carName,
+                        carRating: widget.carRating,
+                        carRenter: widget.carRenter,
+                        carSeats: widget.carSeats,
+                        carAC: widget.carAC,
+                        carSafetyRating: widget.carSafetyRating,
+                        carAddress: widget.carAddress,
+                        carFuelInfo: widget.carFuelInfo,
+                        carPrice: widget.carPrice,
+                        carFeatures: widget.carFeatures,
+                        selectedDate: _selectedDate,
+                        selectedTime: _selectedTime,
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 10,
+                  ),
+                  child: Text(
+                    ' Rent ',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
             ),
+            const SizedBox(height: 16),
+            // SizedBox(
+            //   height: 100,
+            //   child: ListView.builder(
+            //     scrollDirection: Axis.horizontal,
+            //     itemCount: 5,
+            //     itemBuilder: (context, index) {
+            //       return Container(
+            //         width: 80,
+            //         margin: const EdgeInsets.only(right: 8),
+            //         decoration: const BoxDecoration(
+            //           shape: BoxShape.circle,
+            //           // image: DecorationImage(
+            //           //   // image: AssetImage('assets/profile_${index + 1}.png'),
+            //           //   fit: BoxFit.cover,
+            //           // ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
